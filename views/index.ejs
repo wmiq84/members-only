@@ -8,6 +8,7 @@
 		<% if (locals.user) {%>
 		<h1>WELCOME BACK <%= user.name %></h1>
 		<a href="/log-out">LOG OUT</a>
+        <a href="/secret?email=<%= user.name %>">SECRET</a>
 		<% } else { %>
 		<h1>please log in</h1>
 		<form action="/log-in" method="POST">

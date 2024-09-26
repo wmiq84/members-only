@@ -16,6 +16,6 @@ usersRouter.post(
 );
 usersRouter.get('/log-out', usersController.logOutUser);
 usersRouter.get('/secret', usersController.createMemberForm);
-// usersRouter.post('/secret', usersController.signUpMember);
+usersRouter.post('/secret', usersController.signUpMember);
 
 module.exports = usersRouter;

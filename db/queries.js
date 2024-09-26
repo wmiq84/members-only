@@ -17,6 +17,15 @@ async function addUser(userData) {
 	);
 }
 
+
+async function createMember(name) {
+    await pool.query(
+        'UPDATE members SET status = $1 WHERE name = $2',
+        [true, name]
+    );
+}
+
 module.exports = {
 	addUser,
+	createMember,
 };

@@ -35,8 +35,13 @@ async function createMemberForm(req, res) {
 
 async function signUpMember(req, res) {
 	secretCode = 'orange';
-	if (req.body.code === 'orange') {
-	}
+    if (req.query.email) { 
+        const email = req.query.email;
+        if (req.body.code === 'orange') {
+            db.createMember(email);
+            console.log("Passed")
+        }
+    }
 }
 
 module.exports = {
@@ -45,4 +50,5 @@ module.exports = {
 	signUpUser,
 	logOutUser,
 	createMemberForm,
+    signUpMember,
 };

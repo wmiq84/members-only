@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS messages (
 
 INSERT INTO members (name, password, email, status) 
 VALUES
-  ('Haruki Murakami', 'password123', 'haruki@example.com',  true),
-  ('Alexandre Dumas', 'password123', 'alexandre@example.com', true),
-  ('Stephen King', 'password123', 'stephen@example.com', true);
+  ('Haruki Murakami', 'password123', 'haruki@example.com',  false),
+  ('Alexandre Dumas', 'password123', 'alexandre@example.com', false),
+  ('Stephen King', 'password123', 'stephen@example.com', false);
 
 INSERT INTO messages (title, text, time, user_id) 
 VALUES
