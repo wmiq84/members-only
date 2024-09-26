@@ -27,9 +27,11 @@
 			<% for (let message of messages) { %>
 			<li>
 				<h3><%= message.title %></h3>
-				<b><%= message.member %></b>
 				<p><%= message.text %></p>
+                <% if (locals.user && user.status === true) { %>
+				<b><%= message.member %></b>
 				<small><%= message.time %></small>
+				<% } %>
 			</li>
 			<% } %>
 		</ul>
