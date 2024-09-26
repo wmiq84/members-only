@@ -44,6 +44,14 @@ async function signUpMember(req, res) {
     }
 }
 
+async function createMessageForm(req, res) {
+	res.render('message-form');
+}
+
+async function createMessagePost(req, res) {
+    await db.createMessage(req.body, req.query.id);
+}
+
 module.exports = {
 	createSignIn,
 	createSignUp,
@@ -51,4 +59,6 @@ module.exports = {
 	logOutUser,
 	createMemberForm,
     signUpMember,
+    createMessageForm,
+    createMessagePost,
 };
