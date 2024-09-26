@@ -24,8 +24,14 @@ async function createMessage(userData, userId) {
 	);
 }
 
+async function getMessages() {
+    const result = await pool.query('SELECT * FROM messages');
+    return result.rows;
+}
+
 module.exports = {
 	addUser,
 	createMember,
 	createMessage,
+	getMessages,
 };

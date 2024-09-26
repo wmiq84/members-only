@@ -3,7 +3,8 @@
 const db = require('../db/queries');
 
 async function createSignIn(req, res) {
-	res.render('index', { user: req.user });
+    const temp = await db.getMessages();
+	res.render('index', { user: req.user, messages: temp });
 }
 
 async function createSignUp(req, res) {
@@ -39,7 +40,7 @@ async function signUpMember(req, res) {
         const email = req.query.email;
         if (req.body.code === 'orange') {
             db.createMember(email);
-            console.log("Passed")
+            res.redirect('/');
         }
     }
 }
