@@ -4,57 +4,50 @@ const { Client } = require('pg');
 require('dotenv').config();
 
 const SQL = `
-DROP TABLE IF EXISTS authors;
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS genres;
+DROP TABLE IF EXISTS members;
+DROP TABLE IF EXISTS messages;
 
-CREATE TABLE IF NOT EXISTS authors (
+CREATE TABLE IF NOT EXISTS members (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  author VARCHAR (255)
+  name VARCHAR (255),
+  password VARCHAR (255),
+  email VARCHAR (255) UNIQUE,
+  status BOOL
 );
 
-CREATE TABLE IF NOT EXISTS genres (
+CREATE TABLE IF NOT EXISTS messages (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  genre VARCHAR (255)
+  title VARCHAR (255),
+  text VARCHAR (255),
+  time TIMESTAMP,
+  user_id INTEGER,
+  FOREIGN KEY (user_id) REFERENCES members(id)
 );
 
-CREATE TABLE IF NOT EXISTS books (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  book VARCHAR (255),
-  genre_id INTEGER,
-  FOREIGN KEY (genre_id) REFERENCES genres(id)
-);
-
-INSERT INTO authors (author) 
+INSERT INTO members (name, password, email, status) 
 VALUES
-  ('Haruki Murakami'),
-  ('Alexandre Dumas'),
-  ('Stephen King');
+  ('Haruki Murakami', 'password123', 'haruki@example.com',  true),
+  ('Alexandre Dumas', 'password123', 'alexandre@example.com', true),
+  ('Stephen King', 'password123', 'stephen@example.com', true);
 
-INSERT INTO genres (genre) 
+INSERT INTO messages (title, text, time, user_id) 
 VALUES
-  ('Magical realism'),
-  ('Adventure'),
-  ('Post-apocalyptic');
-
-INSERT INTO books (book, genre_id) 
-VALUES
-  ('Kafka On The Shore', 1), -- Magical realism
-  ('The Count of Monte Cristo', 2), -- Adventure
-  ('The Stand', 3); -- Post-apocalyptic
+  ('First Message', 'This is the first message.', NOW(), 1),
+  ('Second Message', 'This is the second message.', NOW(), 2),
+  ('Third Message', 'This is the third message.', NOW(), 3);
 `;
 
 async function main() {
-  const dbUrl = process.argv[2] || process.env.DATABASE_URL;
+	const dbUrl = process.argv[2] || process.env.DATABASE_URL;
 
-  console.log('seeding...');
-  const client = new Client({
-    connectionString: dbUrl,
-  });
-  await client.connect();
-  await client.query(SQL);
-  await client.end();
-  console.log('done');
+	console.log('seeding...');
+	const client = new Client({
+		connectionString: dbUrl,
+	});
+	await client.connect();
+	await client.query(SQL);
+	await client.end();
+	console.log('done');
 }
 
 main().catch((err) => console.error(err.stack));
