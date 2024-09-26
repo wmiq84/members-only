@@ -4,7 +4,7 @@ const db = require('../db/queries');
 
 async function createSignIn(req, res) {
     const temp = await db.getMessages();
-	res.render('index', { user: req.user, messages: temp });
+	res.render('index', { user: req.user, messages: temp, });
 }
 
 async function createSignUp(req, res) {
@@ -51,6 +51,7 @@ async function createMessageForm(req, res) {
 
 async function createMessagePost(req, res) {
     await db.createMessage(req.body, req.query.id);
+    res.redirect('/');
 }
 
 module.exports = {

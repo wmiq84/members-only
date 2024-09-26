@@ -4,8 +4,8 @@ const { Client } = require('pg');
 require('dotenv').config();
 
 const SQL = `
-DROP TABLE IF EXISTS members;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS members;
 
 CREATE TABLE IF NOT EXISTS members (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS messages (
   text VARCHAR (255),
   time TIMESTAMP,
   user_id INTEGER,
-  FOREIGN KEY (user_id) REFERENCES members(id)
+  FOREIGN KEY (user_id) REFERENCES members(id),
+  member VARCHAR (255) -- New column
 );
 
 INSERT INTO members (name, password, email, status) 
@@ -35,6 +36,12 @@ VALUES
   ('First Message', 'This is the first message.', NOW(), 1),
   ('Second Message', 'This is the second message.', NOW(), 2),
   ('Third Message', 'This is the third message.', NOW(), 3);
+
+UPDATE messages
+SET member = members.name
+FROM members
+WHERE messages.user_id = members.id;
+
 `;
 
 async function main() {

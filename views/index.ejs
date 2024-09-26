@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<% if (locals.user) {%>
-		<h1>WELCOME BACK <%= user.name %></h1>
+		<h1>WELCOME BACK <%= user.name %></h1>		
 		<a href="/log-out">LOG OUT</a>
 		<a href="/secret?email=<%= user.name %>">SECRET</a>
 		<% if (user.status === true) {%>
@@ -21,11 +21,13 @@
 			<button>Log In</button>
 		</form>
 		<%}%>
+		<a href="/new">SIGN UP</a>
 		<h2>Your Messages</h2>
 		<ul>
 			<% for (let message of messages) { %>
 			<li>
 				<h3><%= message.title %></h3>
+				<b><%= message.member %></b>
 				<p><%= message.text %></p>
 				<small><%= message.time %></small>
 			</li>
