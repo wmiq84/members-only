@@ -1,12 +1,9 @@
 // controllers/usersController.js
 
 const db = require('../db/queries');
-const pool = require('../db/pool');
-const bcrypt = require('bcryptjs');
 
 async function createSignIn(req, res) {
 	res.render('index', { user: req.user });
-    console.log(req.user);
 }
 
 async function createSignUp(req, res) {
@@ -15,11 +12,7 @@ async function createSignUp(req, res) {
 
 async function signUpUser(req, res, next) {
 	try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-		await pool.query(
-			'INSERT INTO members (name, password, email, status) VALUES ($1, $2, $3, $4)',
-			[req.body.name, hashedPassword, req.body.email, true]
-		);
+		await db.addUser(req.body); // Pass only the necessary data
 		res.redirect('/');
 	} catch (err) {
 		return next(err);
@@ -27,7 +20,7 @@ async function signUpUser(req, res, next) {
 }
 
 async function logOutUser(req, res, next) {
-    console.log("log out test")
+	console.log('log out test');
 	req.logout((err) => {
 		if (err) {
 			return next(err);
@@ -36,9 +29,20 @@ async function logOutUser(req, res, next) {
 	});
 }
 
+async function createMemberForm(req, res) {
+	res.render('member-form');
+}
+
+async function signUpMember(req, res) {
+	secretCode = 'orange';
+	if (req.body.code === 'orange') {
+	}
+}
+
 module.exports = {
 	createSignIn,
 	createSignUp,
 	signUpUser,
 	logOutUser,
+	createMemberForm,
 };
