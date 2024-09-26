@@ -14,6 +14,6 @@ usersRouter.post(
 		failureRedirect: '/',
 	})
 );
-usersRouter.get('/logout', usersController.logOutUser);
+usersRouter.get('/log-out', usersController.logOutUser);
 
 module.exports = usersRouter;

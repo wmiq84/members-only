@@ -5,6 +5,7 @@ const pool = require('../db/pool');
 
 async function createSignIn(req, res) {
 	res.render('index', { user: req.user });
+    console.log(req.user);
 }
 
 async function createSignUp(req, res) {
@@ -26,6 +27,7 @@ async function signUpUser(req, res, next) {
 }
 
 async function logOutUser(req, res, next) {
+    console.log("log out test")
 	req.logout((err) => {
 		if (err) {
 			return next(err);
