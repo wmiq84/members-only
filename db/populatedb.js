@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS members (
   name VARCHAR (255),
   password VARCHAR (255),
   email VARCHAR (255) UNIQUE,
-  status BOOL
+  status BOOL,
+  admin BOOL
 );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -25,11 +26,11 @@ CREATE TABLE IF NOT EXISTS messages (
   member VARCHAR (255) -- New column
 );
 
-INSERT INTO members (name, password, email, status) 
+INSERT INTO members (name, password, email, status, admin) 
 VALUES
-  ('Haruki Murakami', 'password123', 'haruki@example.com',  false),
-  ('Alexandre Dumas', 'password123', 'alexandre@example.com', false),
-  ('Stephen King', 'password123', 'stephen@example.com', false);
+  ('Haruki Murakami', 'password123', 'haruki@example.com',  false, false),
+  ('Alexandre Dumas', 'password123', 'alexandre@example.com', false, false),
+  ('Stephen King', 'password123', 'stephen@example.com', false, false);
 
 INSERT INTO messages (title, text, time, user_id) 
 VALUES

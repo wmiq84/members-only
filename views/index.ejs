@@ -25,14 +25,17 @@
 		<h2>Your Messages</h2>
 		<ul>
 			<% for (let message of messages) { %>
-			<li>
-				<h3><%= message.title %></h3>
-				<p><%= message.text %></p>
-                <% if (locals.user && user.status === true) { %>
-				<b><%= message.member %></b>
-				<small><%= message.time %></small>
-				<% } %>
-			</li>
+				<li>
+					<h3><%= message.title %></h3>
+					<p><%= message.text %></p>
+					<% if (locals.user && user.status === true) { %>
+						<b><%= message.member %></b>
+						<small><%= message.time %></small>
+					<% } %>
+					<% if (locals.user.admin === true) { %>
+						<button>Delete</button>
+					<% } %>
+				</li>
 			<% } %>
 		</ul>
 	</body>

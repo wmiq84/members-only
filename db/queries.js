@@ -3,9 +3,10 @@ const bcrypt = require('bcryptjs');
 
 async function addUser(userData) {
 	const hashedPassword = await bcrypt.hash(userData.password, 10);
+	const admin = userData.admin === 'on';
 	await pool.query(
-		'INSERT INTO members (name, password, email, status) VALUES ($1, $2, $3, $4)',
-		[userData.name, hashedPassword, userData.email, false]
+		'INSERT INTO members (name, password, email, status, admin) VALUES ($1, $2, $3, $4, $5)',
+		[userData.name, hashedPassword, userData.email, false, admin]
 	);
 }
 
