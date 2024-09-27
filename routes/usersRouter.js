@@ -19,5 +19,6 @@ usersRouter.get('/secret', usersController.createMemberForm);
 usersRouter.post('/secret', usersController.signUpMember);
 usersRouter.get('/message', usersController.createMessageForm);
 usersRouter.post('/message', usersController.createMessagePost);
+usersRouter.post('/delete', usersController.deleteMessagePost);
 
 module.exports = usersRouter;

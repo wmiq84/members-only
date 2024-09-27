@@ -43,10 +43,29 @@ async function getUsers() {
 	return result.rows;
 }
 
+async function deleteMessage(id) {
+	console.log("SAD")
+	await pool.query(
+        'DELETE FROM messages WHERE id = $1',
+        [id]	
+	);
+}
+
+// async function deleteBook(book, genre) {
+// 	const genreCount = await pool.query('SELECT COUNT(*) FROM genres WHERE genre = $1', [genre]);
+// 	const genreCountInt = parseInt(genreCount.rows[0].count, 10);
+
+// 	await pool.query('DELETE FROM books WHERE BOOK = $1', [book]);
+// 	if (genreCountInt === 1) {
+// 		await pool.query('DELETE FROM genres WHERE GENRE = $1', [genre]);
+// 	}
+// }
+
 module.exports = {
 	addUser,
 	createMember,
 	createMessage,
 	getMessages,
 	getUsers,
+	deleteMessage,
 };

@@ -3,8 +3,8 @@
 const db = require('../db/queries');
 
 async function createSignIn(req, res) {
-    const temp = await db.getMessages();
-	res.render('index', { user: req.user, messages: temp, });
+	const temp = await db.getMessages();
+	res.render('index', { user: req.user, messages: temp });
 }
 
 async function createSignUp(req, res) {
@@ -36,13 +36,13 @@ async function createMemberForm(req, res) {
 
 async function signUpMember(req, res) {
 	secretCode = 'orange';
-    if (req.query.email) { 
-        const email = req.query.email;
-        if (req.body.code === 'orange') {
-            db.createMember(email);
-            res.redirect('/');
-        }
-    }
+	if (req.query.email) {
+		const email = req.query.email;
+		if (req.body.code === 'orange') {
+			db.createMember(email);
+			res.redirect('/');
+		}
+	}
 }
 
 async function createMessageForm(req, res) {
@@ -50,8 +50,15 @@ async function createMessageForm(req, res) {
 }
 
 async function createMessagePost(req, res) {
-    await db.createMessage(req.body, req.query.id);
-    res.redirect('/');
+	await db.createMessage(req.body, req.query.id);
+	res.redirect('/');
+}
+
+async function deleteMessagePost(req, res) {
+    const { id } = req.body; // Extract id from request body
+    console.log(id)
+	await db.deleteMessage(id);
+	res.redirect('/');
 }
 
 module.exports = {
@@ -60,7 +67,8 @@ module.exports = {
 	signUpUser,
 	logOutUser,
 	createMemberForm,
-    signUpMember,
-    createMessageForm,
-    createMessagePost,
+	signUpMember,
+	createMessageForm,
+	createMessagePost,
+    deleteMessagePost,
 };

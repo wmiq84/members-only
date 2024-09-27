@@ -32,8 +32,11 @@
 						<b><%= message.member %></b>
 						<small><%= message.time %></small>
 					<% } %>
-					<% if (locals.user.admin === true) { %>
-						<button>Delete</button>
+					<% if (locals.user && user.admin === true) { %>
+						<form action="/delete" method="POST" style="display:inline;">
+							<input type="hidden" name="id" value="<%= message.id %>" />
+							<button type="submit">Delete</button>
+						</form>					
 					<% } %>
 				</li>
 			<% } %>
